@@ -11,7 +11,7 @@ body {
     align-items: center;
     padding: 60px 20px;
     position: relative;
-    color-scheme: dark;
+    color: white; /* Ensures default text like terms is white */
 }
 
 /* --- NEBULA BACKGROUND --- */
@@ -59,9 +59,6 @@ body::before {
     color: white;
 }
 
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px 30px; }
-.full-width { grid-column: span 2; }
-
 /* --- INPUTS & DROPDOWNS --- */
 input, select, textarea {
     width: 100%;
@@ -72,33 +69,28 @@ input, select, textarea {
     border-radius: 12px;
     font-size: 15px;
     outline: none;
+    transition: all 0.3s ease;
 }
 
-/* FIX: Forces dropdown options to remain dark and readable */
 select option {
     background-color: #0f0f1e !important;
     color: white !important;
 }
 
-/* --- ERROR STYLING --- */
+/* --- NEON ERROR GLOW --- */
+/* Restored the glowing red effect for better visibility */
 input.error, select.error, textarea.error {
-    border: 2px solid #ff4d4d !important;
-    /* Changed this to a darker background to prevent the white/pink look */
-    background: rgba(20, 20, 35, 0.95) !important; 
-    box-shadow: 0 0 15px rgba(255, 77, 77, 0.4) !important;
+    border: 1px solid #ff4d4d !important;
+    background: rgba(255, 77, 77, 0.1) !important; 
+    box-shadow: 0 0 20px rgba(255, 77, 77, 0.8), inset 0 0 10px rgba(255, 77, 77, 0.2) !important;
     animation: shake 0.4s ease-in-out;
 }
 
-/* Specific fix for the dropdown element's "error" background */
-select.error {
-    background-color: rgba(20, 20, 35, 1) !important;
-}
-
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    50% { transform: translateX(5px); }
-    75% { transform: translateX(-5px); }
+/* Fix for unreadable labels */
+.checkbox-group label, .terms-text {
+    color: white !important;
+    font-size: 14px;
+    cursor: pointer;
 }
 
 .error-message { color: #ff4d4d; font-size: 12px; font-weight: 600; margin-top: 4px; display: block; }
@@ -109,4 +101,5 @@ select.error {
     background: linear-gradient(90deg, #00d2ff, #3a7bd5);
     border: none; color: white; font-weight: 800; border-radius: 15px;
     cursor: pointer; text-transform: uppercase; margin-top: 20px;
+    box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
 }
