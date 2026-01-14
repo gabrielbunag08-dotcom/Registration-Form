@@ -10,51 +10,42 @@
     <div class="background-animation">
         <div class="shape shape-1"></div>
         <div class="shape shape-2"></div>
-        <div class="shape shape-3"></div>
-        <div class="shape shape-4"></div>
-        <div class="shape shape-5"></div>
-        <div class="shape shape-6"></div>
     </div>
 
     <div class="container">
         <div class="form-wrapper">
             <h1 class="form-title">Register</h1>
-            
             <form id="registrationForm" novalidate>
                 <div class="form-row">
                     <div class="form-group">
-                        <input type="text" id="firstName" name="firstName" placeholder="First Name" required>
+                        <input type="text" id="firstName" placeholder="First Name">
                         <span class="error-message" id="firstNameError"></span>
                     </div>
-                    
                     <div class="form-group">
-                        <input type="text" id="lastName" name="lastName" placeholder="Last Name" required>
+                        <input type="text" id="lastName" placeholder="Last Name">
                         <span class="error-message" id="lastNameError"></span>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <input type="text" id="username" name="username" placeholder="Username" required>
+                        <input type="text" id="username" placeholder="Username">
                         <span class="error-message" id="usernameError"></span>
                     </div>
-                    
                     <div class="form-group">
-                        <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Phone Number" required>
+                        <input type="tel" id="phoneNumber" placeholder="Phone Number">
                         <span class="error-message" id="phoneNumberError"></span>
                     </div>
                 </div>
 
-                <div class="form-row">
-                    <div class="form-group full-width">
-                        <input type="email" id="email" name="email" placeholder="Your E-Mail Address" required>
-                        <span class="error-message" id="emailError"></span>
-                    </div>
+                <div class="form-group full-width">
+                    <input type="email" id="email" placeholder="Your E-Mail Address">
+                    <span class="error-message" id="emailError"></span>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <select id="gender" name="gender" required>
+                        <select id="gender">
                             <option value="">Gender</option>
                             <option value="male">Male</option>
                             <option value="female">Female</option>
@@ -62,80 +53,59 @@
                         </select>
                         <span class="error-message" id="genderError"></span>
                     </div>
-                    
                     <div class="form-group">
-                        <input type="text" id="dob" name="dob" placeholder="Date Of Birth : DD/MM/YY" required>
+                        <input type="text" id="dob" placeholder="MM/DD/YYYY">
                         <span class="error-message" id="dobError"></span>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <select id="country" name="country" required>
+                        <select id="country">
                             <option value="">Country</option>
                             <option value="philippines">Philippines</option>
                             <option value="usa">United States</option>
-                            <option value="uk">United Kingdom</option>
-                            <option value="canada">Canada</option>
-                            <option value="australia">Australia</option>
                         </select>
                         <span class="error-message" id="countryError"></span>
                     </div>
-                    
                     <div class="form-group">
-                        <input type="text" id="company" name="company" placeholder="Your Company's Name">
-                        <span class="error-message" id="companyError"></span>
+                        <input type="text" id="company" placeholder="Your Company's Name">
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <textarea id="homeAddress" name="homeAddress" placeholder="Home Address" rows="3" required></textarea>
+                        <textarea id="homeAddress" placeholder="Home Address" rows="3"></textarea>
                         <span class="error-message" id="homeAddressError"></span>
                     </div>
-                    
                     <div class="form-group">
-                        <textarea id="officeAddress" name="officeAddress" placeholder="Office Address" rows="3"></textarea>
-                        <span class="error-message" id="officeAddressError"></span>
+                        <textarea id="officeAddress" placeholder="Office Address" rows="3"></textarea>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <input type="password" id="password" name="password" placeholder="Password" required>
+                        <input type="password" id="password" placeholder="Password">
                         <span class="error-message" id="passwordError"></span>
                     </div>
-                    
                     <div class="form-group">
-                        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required>
+                        <input type="password" id="confirmPassword" placeholder="Confirm Password">
                         <span class="error-message" id="confirmPasswordError"></span>
                     </div>
                 </div>
 
                 <div class="checkbox-group">
                     <label>
-                        <input type="checkbox" id="terms" name="terms" required>
-                        I agree with the terms & conditions.
+                        <input type="checkbox" id="terms"> I agree with the terms & conditions.
                     </label>
                     <span class="error-message" id="termsError"></span>
                 </div>
 
-                <div class="checkbox-group">
-                    <label>
-                        <input type="checkbox" id="offers" name="offers">
-                        Receive best offers and updates.
-                    </label>
-                </div>
-
                 <button type="submit" class="submit-btn">Register</button>
-
-                <p class="login-link">
-                    Already have an account? <a href="#">Login</a>
-                </p>
+                <p class="login-link">Already have an account? <a href="#">Login</a></p>
             </form>
         </div>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
