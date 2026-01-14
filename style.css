@@ -16,11 +16,10 @@ body {
     padding: 60px 20px;
     overflow-x: hidden;
     position: relative;
-    /* This tells the browser to use dark-mode UI for dropdowns and scrollbars */
-    color-scheme: dark; 
+    color-scheme: dark; /* Forces browser UI like scrollbars and dropdowns to dark mode */
 }
 
-/* --- SPACE EFFECTS --- */
+/* --- SPACE & NEBULA EFFECTS --- */
 body::before {
     content: "";
     position: fixed;
@@ -58,7 +57,7 @@ body::before {
     to { transform: translate(60px, 60px) scale(1.1); }
 }
 
-/* --- CONTAINER & FORM --- */
+/* --- CONTAINER & GLASS-MORPHISM --- */
 .container {
     width: 100%;
     max-width: 850px;
@@ -85,12 +84,14 @@ body::before {
     text-transform: uppercase;
     letter-spacing: 4px;
     font-weight: 800;
+    font-size: 28px;
 }
 
+/* --- GRID SYSTEM --- */
 .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 15px 30px;
+    gap: 10px 30px;
     margin-bottom: 5px;
 }
 
@@ -105,26 +106,24 @@ input, select, textarea {
     color: white !important;
     border-radius: 12px;
     font-size: 15px;
-    transition: 0.3s ease;
+    transition: all 0.3s ease;
 }
 
-/* Specific fix for the dropdown text color when closed */
+/* Dropdown specific fixes */
 select {
     cursor: pointer;
-    appearance: none; /* Removes default arrow to prevent styling clashes */
     background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white' width='18px' height='18px'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
     background-repeat: no-repeat;
     background-position: right 15px center;
+    appearance: none;
 }
 
-/* --- THE CRITICAL DROPDOWN FIX --- */
 select option {
-    background-color: #1a1a2e !important; /* Very dark navy */
-    color: white !important; /* Bold white text */
-    padding: 12px;
+    background-color: #1a1a2e !important;
+    color: white !important;
 }
 
-/* Hover and Focus */
+/* Focus States */
 input:focus, select:focus, textarea:focus {
     border-color: #00d2ff !important;
     box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
@@ -134,7 +133,24 @@ input:focus, select:focus, textarea:focus {
 
 textarea { resize: none; }
 
-/* --- CHECKBOXES --- */
+/* --- RED ALERT VALIDATION STYLES --- */
+.error-message {
+    color: #ff4d4d !important; /* Neon Red */
+    font-size: 12px;
+    font-weight: 600;
+    height: 20px;
+    margin-top: 4px;
+    display: block;
+}
+
+/* When the JS adds the 'error' class to the input */
+input.error, select.error, textarea.error {
+    border-color: #ff4d4d !important;
+    background: rgba(255, 77, 77, 0.15) !important;
+    box-shadow: 0 0 10px rgba(255, 77, 77, 0.3) !important;
+}
+
+/* --- CHECKBOX & BUTTON --- */
 .checkbox-group {
     margin: 20px 0;
     display: flex;
@@ -143,7 +159,6 @@ textarea { resize: none; }
     font-size: 14px;
 }
 
-/* --- BUTTON --- */
 .submit-btn {
     width: 100%;
     padding: 18px;
@@ -155,20 +170,22 @@ textarea { resize: none; }
     border-radius: 15px;
     cursor: pointer;
     text-transform: uppercase;
-    box-shadow: 0 10px 20px rgba(0, 210, 255, 0.3);
     transition: 0.3s;
+    margin-top: 10px;
 }
 
 .submit-btn:hover {
     filter: brightness(1.2);
     transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 210, 255, 0.4);
 }
 
 .login-link { text-align: center; margin-top: 25px; }
 .login-link a { color: #00d2ff; text-decoration: none; font-weight: 600; }
 
-/* Responsive Mobile */
+/* Responsive */
 @media (max-width: 650px) {
     .form-row { grid-template-columns: 1fr; }
     .full-width { grid-column: span 1; }
+    .form-wrapper { padding: 30px; }
 }
