@@ -1,54 +1,150 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('registrationForm');
-    const fields = ['firstName', 'lastName', 'username', 'phoneNumber', 'email', 'gender', 'dob', 'country', 'homeAddress', 'password', 'confirmPassword', 'terms'];
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap');
 
-    const validate = {
-        firstName: (val) => /^[a-zA-Z]+$/.test(val) ? '' : 'Letters only',
-        lastName: (val) => /^[a-zA-Z]+$/.test(val) ? '' : 'Letters only',
-        username: (val) => val.length >= 4 ? '' : 'At least 4 characters',
-        phoneNumber: (val) => /^\d{10,11}$/.test(val) ? '' : '10-11 digits only',
-        email: (val) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val) ? '' : 'Invalid email',
-        gender: (val) => val !== '' ? '' : 'Select gender',
-        
-        // --- FIXED DOB LOGIC ---
-        // Matches MM/DD/YYYY format (e.g., 10/01/1999)
-        dob: (val) => /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/\d{4}$/.test(val) ? '' : 'Format: MM/DD/YYYY',
-        
-        country: (val) => val !== '' ? '' : 'Select country',
-        homeAddress: (val) => val.length >= 10 ? '' : 'Address too short',
-        password: (val) => (val.length >= 8 && /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(val)) ? '' : 'Need Uppercase, Lowercase & Number',
-        confirmPassword: (val) => val === document.getElementById('password').value ? '' : 'Passwords do not match',
-        terms: () => document.getElementById('terms').checked ? '' : 'You must agree'
-    };
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-    function checkField(id) {
-        const input = document.getElementById(id);
-        const error = document.getElementById(id + 'Error');
-        const value = (id === 'terms') ? '' : input.value.trim();
-        const message = validate[id](value);
-        
-        if (message) {
-            input.classList.add('error'); // Triggers the neon glow in CSS
-            if (error) error.textContent = message;
-            return false;
-        } else {
-            input.classList.remove('error');
-            if (error) error.textContent = '';
-            return true;
-        }
-    }
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #020205; 
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+    overflow-x: hidden;
+    position: relative;
+    color: white;
+}
 
-    fields.forEach(id => {
-        const el = document.getElementById(id);
-        const type = (el.tagName === 'SELECT' || el.type === 'checkbox') ? 'change' : 'blur';
-        el.addEventListener(type, () => checkField(id));
-    });
+/* --- SPACE EFFECTS --- */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 200%; height: 200%;
+    background-image: 
+        radial-gradient(white, rgba(255,255,255,.3) 1px, transparent 20px),
+        radial-gradient(white, rgba(255,255,255,.1) 1.5px, transparent 30px);
+    background-size: 550px 550px, 350px 350px;
+    opacity: 0.5;
+    z-index: 0;
+    animation: spaceMove 150s linear infinite;
+}
 
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const results = fields.map(id => checkField(id));
-        if (results.every(res => res === true)) {
-            alert('Registration successful!');
-        }
-    });
-});
+@keyframes spaceMove {
+    from { transform: translate(0, 0); }
+    to { transform: translate(-50%, -50%); }
+}
+
+.shape {
+    position: fixed;
+    filter: blur(120px);
+    border-radius: 50%;
+    opacity: 0.6;
+    z-index: 1;
+    animation: nebulaFloat 25s infinite alternate ease-in-out;
+}
+
+.shape-1 { width: 500px; height: 500px; background: #00d2ff; top: -15%; left: -10%; }
+.shape-2 { width: 600px; height: 600px; background: #ff00cc; bottom: -15%; right: -10%; animation-delay: -5s; }
+
+@keyframes nebulaFloat {
+    from { transform: translate(0, 0) scale(1); }
+    to { transform: translate(60px, 60px) scale(1.1); }
+}
+
+/* --- CONTAINER & FORM --- */
+.container { width: 100%; max-width: 850px; position: relative; z-index: 10; }
+
+.form-wrapper {
+    background: rgba(15, 15, 30, 0.85);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 30px;
+    padding: 50px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+}
+
+.form-title {
+    text-align: center;
+    margin: -50px -50px 30px -50px;
+    padding: 30px;
+    background: linear-gradient(90deg, #ff00cc, #3333ff, #00d2ff);
+    border-radius: 30px 30px 0 0;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-weight: 800;
+}
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 30px; }
+.full-width { grid-column: span 2; }
+
+/* --- INPUTS --- */
+input, select, textarea {
+    width: 100%;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: white !important;
+    border-radius: 12px;
+    font-size: 15px;
+    transition: all 0.3s ease;
+}
+
+select option { background-color: #1a1a2e !important; color: white !important; }
+
+/* --- INTENSE NEON ERROR GLOW --- */
+input.error, select.error, textarea.error {
+    border: 2px solid #ff4d4d !important; 
+    background: rgba(255, 77, 77, 0.15) !important;
+    /* Increased shadow for maximum neon pop */
+    box-shadow: 0 0 25px 8px rgba(255, 77, 77, 0.8) !important;
+    animation: shake 0.4s ease-in-out;
+}
+
+/* --- TEXT AND CHECKBOXES --- */
+.checkbox-container {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.checkbox-group label {
+    color: white !important;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.error-message {
+    color: #ff4d4d !important;
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 4px;
+    display: block;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+}
+
+/* --- BUTTON & MISC --- */
+.submit-btn {
+    width: 100%; padding: 18px;
+    background: linear-gradient(90deg, #00d2ff, #3a7bd5);
+    border: none; color: white; font-weight: 800; font-size: 18px; border-radius: 15px;
+    cursor: pointer; text-transform: uppercase; margin-top: 30px;
+}
+
+.login-link { text-align: center; margin-top: 25px; }
+.login-link a { color: #00d2ff; text-decoration: none; font-weight: 600; }
