@@ -1,76 +1,62 @@
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('registrationForm');
     
-    // List of all field IDs for easy management
-    const fields = [
-        'firstName', 'lastName', 'username', 'phoneNumber', 
-        'email', 'gender', 'dob', 'country', 
-        'homeAddress', 'password', 'confirmPassword', 'terms'
-    ];
+    // IDs of fields to validate
+    const fields = ['firstName', 'lastName', 'username', 'phoneNumber', 'email', 'gender', 'dob', 'country', 'homeAddress', 'password', 'confirmPassword', 'terms'];
 
-    // Validation logic for each field
     const validate = {
-        firstName: (val) => /^[a-zA-Z]+$/.test(val) ? '' : 'First name should contain only letters',
-        lastName: (val) => /^[a-zA-Z]+$/.test(val) ? '' : 'Last name should contain only letters',
-        username: (val) => val.length >= 4 ? '' : 'Username must be at least 4 characters',
-        phoneNumber: (val) => /^\d{10,11}$/.test(val) ? '' : 'Phone number must be 10-11 digits',
-        email: (val) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val) ? '' : 'Please enter a valid email address',
-        gender: (val) => val !== '' ? '' : 'Please select a gender',
+        firstName: (val) => /^[a-zA-Z]+$/.test(val) ? '' : 'Letters only',
+        lastName: (val) => /^[a-zA-Z]+$/.test(val) ? '' : 'Letters only',
+        username: (val) => val.length >= 4 ? '' : 'At least 4 characters',
+        phoneNumber: (val) => /^\d{10,11}$/.test(val) ? '' : '10-11 digits only',
+        email: (val) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val) ? '' : 'Invalid email format',
+        gender: (val) => val !== '' ? '' : 'Select gender',
         
-        // --- FIXED DATE OF BIRTH REGEX ---
-        // This now accepts numbers in MM/DD/YYYY format (e.g., 10/08/2001)
-        dob: (val) => /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/\d{4}$/.test(val) ? '' : 'Format: MM/DD/YYYY (Numbers only)',
+        // --- FIXED DOB LOGIC ---
+        // This regex now properly handles MM/DD/YYYY
+        dob: (val) => /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/\d{4}$/.test(val) ? '' : 'Use MM/DD/YYYY format',
         
-        country: (val) => val !== '' ? '' : 'Please select a country',
-        homeAddress: (val) => val.length >= 10 ? '' : 'Please enter a complete address',
-        password: (val) => (val.length >= 8 && /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(val)) ? '' : 'Must contain uppercase, lowercase, and number',
+        country: (val) => val !== '' ? '' : 'Select country',
+        homeAddress: (val) => val.length >= 10 ? '' : 'Address too short',
+        password: (val) => (val.length >= 8 && /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(val)) ? '' : 'Need Upper/Lower/Number',
         confirmPassword: (val) => val === document.getElementById('password').value ? '' : 'Passwords do not match',
         
-        // Special check for checkbox
-        terms: () => document.getElementById('terms').checked ? '' : 'You must agree to the terms and conditions'
+        // Checkbox validation
+        terms: () => document.getElementById('terms').checked ? '' : 'You must agree'
     };
 
-    /**
-     * Reusable function to check an individual field and apply neon error styles
-     */
     function checkField(id) {
         const input = document.getElementById(id);
-        const errorElement = document.getElementById(id + 'Error');
-        const value = (id === 'terms') ? '' : input.value.trim();
-        const errorMessage = validate[id](value);
-
-        if (errorMessage !== '') {
-            input.classList.add('error');
-            if (errorElement) errorElement.textContent = errorMessage;
+        const error = document.getElementById(id + 'Error');
+        
+        // Use checkbox state for terms, otherwise use text value
+        const val = (id === 'terms') ? '' : input.value.trim();
+        const message = validate[id](val);
+        
+        if (message) {
+            input.classList.add('error'); // Triggers strong neon glow in CSS
+            if (error) error.textContent = message;
             return false;
         } else {
             input.classList.remove('error');
-            if (errorElement) errorElement.textContent = '';
+            if (error) error.textContent = '';
             return true;
         }
     }
 
-    // Add Real-time Validation: Checks field when user clicks away (blur) or changes it
+    // Add listeners to validate as you type/select
     fields.forEach(id => {
-        const element = document.getElementById(id);
-        const eventType = (element.tagName === 'SELECT' || element.type === 'checkbox') ? 'change' : 'blur';
-        
-        element.addEventListener(eventType, () => checkField(id));
+        const el = document.getElementById(id);
+        const type = (el.tagName === 'SELECT' || el.type === 'checkbox') ? 'change' : 'blur';
+        el.addEventListener(type, () => checkField(id));
     });
 
-    // Form Submission Logic
-    form.addEventListener('submit', function(e) {
+    // Form Submission
+    form.addEventListener('submit', (e) => {
         e.preventDefault();
-        
-        // Run validation on all fields
-        const isFormValid = fields.map(id => checkField(id)).every(result => result === true);
-
-        if (isFormValid) {
-            alert('Registration successful! Form data is valid.');
-            console.log('Form submitted successfully');
-            // form.reset(); // Optional: clears form after success
-        } else {
-            alert('Please fix all errors before submitting.');
+        const results = fields.map(id => checkField(id));
+        if (results.every(res => res === true)) {
+            alert('Registration Successful!');
         }
     });
 });
