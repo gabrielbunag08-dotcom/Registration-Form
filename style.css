@@ -18,18 +18,18 @@ body {
     position: relative;
 }
 
-/* --- SPACE EFFECTS --- */
+/* --- DEEP SPACE ANIMATIONS --- */
 body::before {
     content: "";
     position: fixed;
     top: 0; left: 0; width: 200%; height: 200%;
     background-image: 
-        radial-gradient(white, rgba(255,255,255,.2) 1px, transparent 20px),
+        radial-gradient(white, rgba(255,255,255,.3) 1px, transparent 20px),
         radial-gradient(white, rgba(255,255,255,.1) 1.5px, transparent 30px);
     background-size: 550px 550px, 350px 350px;
-    opacity: 0.4;
+    opacity: 0.5;
     z-index: 0;
-    animation: spaceMove 120s linear infinite;
+    animation: spaceMove 150s linear infinite;
 }
 
 @keyframes spaceMove {
@@ -39,150 +39,140 @@ body::before {
 
 .shape {
     position: fixed;
-    filter: blur(100px);
+    filter: blur(120px);
     border-radius: 50%;
-    opacity: 0.5;
+    opacity: 0.6;
     z-index: 1;
-    animation: nebulaFloat 20s infinite alternate ease-in-out;
+    animation: nebulaFloat 25s infinite alternate ease-in-out;
 }
 
-.shape-1 { width: 400px; height: 400px; background: #00d2ff; top: -10%; left: -10%; }
-.shape-2 { width: 500px; height: 500px; background: #ff00cc; bottom: -10%; right: -10%; animation-delay: -5s; }
-.shape-3 { width: 300px; height: 300px; background: #3a7bd5; top: 20%; right: 10%; opacity: 0.3; }
-.shape-4 { width: 250px; height: 250px; background: #8e2de2; bottom: 20%; left: 5%; opacity: 0.2; }
-.shape-5 { width: 150px; height: 150px; background: #00ffcc; top: 50%; left: 50%; opacity: 0.1; }
-.shape-6 { width: 200px; height: 200px; background: #ff4b2b; top: 10%; left: 40%; opacity: 0.1; }
+.shape-1 { width: 500px; height: 500px; background: #00d2ff; top: -15%; left: -10%; }
+.shape-2 { width: 600px; height: 600px; background: #ff00cc; bottom: -15%; right: -10%; animation-delay: -5s; }
+.shape-3 { width: 400px; height: 400px; background: #3a7bd5; top: 20%; right: 5%; opacity: 0.4; }
+.shape-4 { width: 300px; height: 300px; background: #8e2de2; bottom: 10%; left: 5%; opacity: 0.3; }
 
 @keyframes nebulaFloat {
-    from { transform: translate(0, 0) scale(1); }
-    to { transform: translate(50px, 50px) scale(1.1); }
+    from { transform: translate(0, 0) scale(1) rotate(0deg); }
+    to { transform: translate(60px, 60px) scale(1.1) rotate(15deg); }
 }
 
-/* --- CENTERED FORM LAYOUT --- */
+/* --- GLASS-MORPHISM CONTAINER --- */
 .container {
     width: 100%;
-    max-width: 800px; /* Aligns with the sample design width */
+    max-width: 850px;
     position: relative;
     z-index: 10;
     margin: 0 auto;
 }
 
 .form-wrapper {
-    background: rgba(10, 10, 25, 0.85);
-    backdrop-filter: blur(25px);
-    border: 1px solid rgba(0, 210, 255, 0.3);
-    border-radius: 25px;
-    padding: 40px;
-    box-shadow: 0 0 50px rgba(0, 0, 0, 0.9);
+    background: rgba(15, 15, 30, 0.7); /* Translucent dark purple-black */
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 30px;
+    padding: 50px;
+    box-shadow: 
+        0 25px 50px -12px rgba(0, 0, 0, 0.5),
+        inset 0 0 20px rgba(0, 210, 255, 0.1); /* Subtle inner neon glow */
     color: white;
 }
 
 .form-title {
     text-align: center;
-    margin: -40px -40px 30px -40px;
-    padding: 25px;
+    margin: -50px -50px 40px -50px;
+    padding: 30px;
     background: linear-gradient(90deg, #ff00cc, #3333ff, #00d2ff);
-    border-radius: 25px 25px 0 0;
+    background-size: 200% auto;
+    animation: gradientShift 5s ease infinite;
+    border-radius: 30px 30px 0 0;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 4px;
     font-weight: 800;
+    font-size: 32px;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
 }
 
-/* --- GRID SYSTEM FOR TWO COLUMNS --- */
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* --- NEON GRID SYSTEM --- */
 .form-row {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Spreads boxes into two equal columns */
-    gap: 10px 25px; /* Adjusts horizontal and vertical spacing */
-    margin-bottom: 5px;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px 30px;
+    margin-bottom: 8px;
     width: 100%;
 }
 
-.form-group {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-}
+.form-group { width: 100%; position: relative; }
+.full-width { grid-column: span 2; }
 
-.full-width {
-    grid-column: span 2; /* Ensures Email stretches across the center */
-}
-
-/* --- INPUT FIELDS --- */
+/* --- INTERACTIVE INPUTS --- */
 input, select, textarea {
-    width: 100%; /* Forces boxes to fill their half of the grid */
-    padding: 14px;
-    background: rgba(255, 255, 255, 0.07) !important;
-    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    width: 100%;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
     color: white !important;
-    border-radius: 10px;
-    font-size: 14px;
-    transition: all 0.3s ease;
+    border-radius: 12px;
+    font-size: 15px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Hover & Focus Effects */
+input:hover, select:hover, textarea:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border-color: rgba(0, 210, 255, 0.5) !important;
 }
 
 input:focus, select:focus, textarea:focus {
-    border-color: #00d2ff !important;
-    box-shadow: 0 0 15px rgba(0, 210, 255, 0.5);
     background: rgba(255, 255, 255, 0.12) !important;
+    border-color: #00d2ff !important;
+    box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
+    transform: translateY(-2px);
     outline: none;
 }
 
-/* --- TEXT AND LABELS --- */
-.error-message {
-    color: #ff4757;
-    font-size: 11px;
-    height: 18px;
-    display: block;
-    margin-top: 2px;
-}
-
-.checkbox-group {
-    margin: 15px 0;
-    font-size: 14px;
-}
-
-.checkbox-group input {
-    width: auto;
-    margin-right: 10px;
-}
-
+/* --- BUTTON & LINKS --- */
 .submit-btn {
     width: 100%;
-    padding: 16px;
-    background: linear-gradient(90deg, #00d2ff, #3a7bd5);
+    padding: 18px;
+    background: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
     border: none;
     color: white;
-    font-weight: 700;
-    font-size: 16px;
-    border-radius: 12px;
+    font-weight: 800;
+    font-size: 18px;
+    border-radius: 15px;
     cursor: pointer;
     text-transform: uppercase;
-    transition: 0.3s;
-    margin-top: 10px;
+    letter-spacing: 2px;
+    margin-top: 25px;
+    box-shadow: 0 10px 30px rgba(0, 210, 255, 0.4);
+    transition: 0.3s all;
 }
 
 .submit-btn:hover {
-    filter: brightness(1.2);
-    box-shadow: 0 0 20px rgba(0, 210, 255, 0.6);
-    transform: translateY(-2px);
+    transform: scale(1.02);
+    box-shadow: 0 0 40px rgba(0, 210, 255, 0.7);
+    filter: brightness(1.1);
 }
 
-.login-link {
-    text-align: center;
-    margin-top: 20px;
+.login-link { text-align: center; margin-top: 25px; opacity: 0.8; }
+.login-link a { 
+    color: #00d2ff; 
+    text-decoration: none; 
+    font-weight: 600; 
+    transition: 0.3s;
 }
+.login-link a:hover { text-shadow: 0 0 10px #00d2ff; }
 
-.login-link a {
-    color: #00d2ff;
-    text-decoration: none;
-    font-weight: 600;
-}
-
-/* MOBILE RESPONSIVENESS */
-@media (max-width: 600px) {
-    .form-row {
-        grid-template-columns: 1fr;
-    }
-    .full-width {
-        grid-column: span 1;
-    }
+/* Responsive */
+@media (max-width: 650px) {
+    .form-row { grid-template-columns: 1fr; }
+    .full-width { grid-column: span 1; }
+    .form-wrapper { padding: 30px; }
 }
