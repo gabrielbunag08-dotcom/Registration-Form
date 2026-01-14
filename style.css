@@ -71,9 +71,10 @@ input, select, textarea {
     color: white !important;
     border-radius: 12px;
     font-size: 15px;
+    outline: none;
 }
 
-/* Restore dark dropdown options */
+/* FIX: Forces dropdown options to remain dark and readable */
 select option {
     background-color: #0f0f1e !important;
     color: white !important;
@@ -82,9 +83,15 @@ select option {
 /* --- ERROR STYLING --- */
 input.error, select.error, textarea.error {
     border: 2px solid #ff4d4d !important;
-    background: rgba(255, 77, 77, 0.05) !important; /* Very faint red to keep text clear */
+    /* Changed this to a darker background to prevent the white/pink look */
+    background: rgba(20, 20, 35, 0.95) !important; 
     box-shadow: 0 0 15px rgba(255, 77, 77, 0.4) !important;
     animation: shake 0.4s ease-in-out;
+}
+
+/* Specific fix for the dropdown element's "error" background */
+select.error {
+    background-color: rgba(20, 20, 35, 1) !important;
 }
 
 @keyframes shake {
