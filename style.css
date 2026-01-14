@@ -92,16 +92,17 @@ input, select, textarea {
 select option { background-color: #1a1a2e !important; color: white !important; }
 
 /* --- NEON ERROR GLOW --- */
+/* Restored heavy glow */
 input.error, select.error, textarea.error {
     border: 2px solid #ff4d4d !important; 
     background: rgba(255, 77, 77, 0.1) !important;
-    box-shadow: 0 0 20px rgba(255, 77, 77, 0.8) !important;
+    box-shadow: 0 0 20px 5px rgba(255, 77, 77, 0.7) !important;
     animation: shake 0.4s ease-in-out;
 }
 
-/* Fix for readable Terms & Conditions text */
+/* --- TEXT COLORS --- */
 .checkbox-group label {
-    color: white !important;
+    color: white !important; /* Fix for terms visibility */
     font-size: 14px;
     cursor: pointer;
 }
@@ -131,8 +132,3 @@ input.error, select.error, textarea.error {
 
 .login-link { text-align: center; margin-top: 25px; }
 .login-link a { color: #00d2ff; text-decoration: none; font-weight: 600; }
-
-@media (max-width: 650px) {
-    .form-row { grid-template-columns: 1fr; }
-    .full-width { grid-column: span 1; }
-}
