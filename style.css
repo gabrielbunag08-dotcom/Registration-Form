@@ -16,10 +16,10 @@ body {
     padding: 60px 20px;
     overflow-x: hidden;
     position: relative;
-    color-scheme: dark; /* Helps force dark mode UI for dropdowns */
+    color-scheme: dark;
 }
 
-/* --- SPACE & NEBULA EFFECTS --- */
+/* --- SPACE EFFECTS --- */
 body::before {
     content: "";
     position: fixed;
@@ -84,17 +84,15 @@ body::before {
     font-weight: 800;
 }
 
-/* --- THE GRID SYSTEM --- */
 .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px 30px;
-    margin-bottom: 5px;
 }
 
 .full-width { grid-column: span 2; }
 
-/* --- INPUTS & DROPDOWNS --- */
+/* --- INPUTS --- */
 input, select, textarea {
     width: 100%;
     padding: 16px;
@@ -106,39 +104,34 @@ input, select, textarea {
     transition: all 0.3s ease;
 }
 
-/* Fix for the white dropdown background you saw earlier */
-select option {
-    background-color: #1a1a2e !important;
-    color: white !important;
-}
+select option { background-color: #1a1a2e !important; color: white !important; }
 
-/* Standard Focus (Blue Glow) */
-input:focus, select:focus, textarea:focus {
-    border-color: #00d2ff !important;
-    box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
-    background: rgba(255, 255, 255, 0.12) !important;
-    outline: none;
-}
-
-/* --- RED ALERT / ERROR STYLING --- */
-/* This matches your JS classList.add('error') */
+/* --- ERROR & SHAKE ANIMATION --- */
+/* This forces the red border to appear */
 input.error, select.error, textarea.error {
-    border-color: #ff4d4d !important; /* Bright Red Border */
-    background: rgba(255, 77, 77, 0.15) !important; /* Subtle Red Background */
-    box-shadow: 0 0 15px rgba(255, 77, 77, 0.5) !important; /* Neon Red Glow */
+    border: 2px solid #ff4d4d !important; 
+    background: rgba(255, 77, 77, 0.2) !important;
+    box-shadow: 0 0 15px rgba(255, 77, 77, 0.6) !important;
+    animation: shake 0.4s ease-in-out; /* The wiggle effect */
 }
 
-/* This matches your <div class="error-message"> text */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+}
+
 .error-message {
     color: #ff4d4d !important;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 600;
-    height: 18px; /* Keeps layout stable when text appears */
-    margin-top: 2px;
+    margin-top: 4px;
+    margin-bottom: 8px;
     display: block;
 }
 
-/* --- BUTTONS & LINKS --- */
+/* --- BUTTON & MISC --- */
 .submit-btn {
     width: 100%;
     padding: 18px;
@@ -150,19 +143,13 @@ input.error, select.error, textarea.error {
     border-radius: 15px;
     cursor: pointer;
     text-transform: uppercase;
-    transition: 0.3s;
     margin-top: 20px;
 }
 
-.submit-btn:hover {
-    filter: brightness(1.2);
-    transform: translateY(-2px);
-}
-
+.submit-btn:hover { filter: brightness(1.2); transform: translateY(-2px); }
 .login-link { text-align: center; margin-top: 25px; }
 .login-link a { color: #00d2ff; text-decoration: none; font-weight: 600; }
 
-/* Responsive Mobile */
 @media (max-width: 650px) {
     .form-row { grid-template-columns: 1fr; }
     .full-width { grid-column: span 1; }
