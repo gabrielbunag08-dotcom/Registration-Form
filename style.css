@@ -16,7 +16,7 @@ body {
     padding: 60px 20px;
     overflow-x: hidden;
     position: relative;
-    color-scheme: dark; /* Forces browser UI like scrollbars and dropdowns to dark mode */
+    color-scheme: dark; /* Helps force dark mode UI for dropdowns */
 }
 
 /* --- SPACE & NEBULA EFFECTS --- */
@@ -49,15 +49,13 @@ body::before {
 
 .shape-1 { width: 500px; height: 500px; background: #00d2ff; top: -15%; left: -10%; }
 .shape-2 { width: 600px; height: 600px; background: #ff00cc; bottom: -15%; right: -10%; animation-delay: -5s; }
-.shape-3 { width: 400px; height: 400px; background: #3a7bd5; top: 20%; right: 5%; opacity: 0.4; }
-.shape-4 { width: 300px; height: 300px; background: #8e2de2; bottom: 10%; left: 5%; opacity: 0.3; }
 
 @keyframes nebulaFloat {
     from { transform: translate(0, 0) scale(1); }
     to { transform: translate(60px, 60px) scale(1.1); }
 }
 
-/* --- CONTAINER & GLASS-MORPHISM --- */
+/* --- CONTAINER & FORM --- */
 .container {
     width: 100%;
     max-width: 850px;
@@ -77,17 +75,16 @@ body::before {
 
 .form-title {
     text-align: center;
-    margin: -50px -50px 40px -50px;
+    margin: -50px -50px 30px -50px;
     padding: 30px;
     background: linear-gradient(90deg, #ff00cc, #3333ff, #00d2ff);
     border-radius: 30px 30px 0 0;
     text-transform: uppercase;
     letter-spacing: 4px;
     font-weight: 800;
-    font-size: 28px;
 }
 
-/* --- GRID SYSTEM --- */
+/* --- THE GRID SYSTEM --- */
 .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -97,7 +94,7 @@ body::before {
 
 .full-width { grid-column: span 2; }
 
-/* --- INPUTS & SELECTS --- */
+/* --- INPUTS & DROPDOWNS --- */
 input, select, textarea {
     width: 100%;
     padding: 16px;
@@ -109,21 +106,13 @@ input, select, textarea {
     transition: all 0.3s ease;
 }
 
-/* Dropdown specific fixes */
-select {
-    cursor: pointer;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white' width='18px' height='18px'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
-    background-repeat: no-repeat;
-    background-position: right 15px center;
-    appearance: none;
-}
-
+/* Fix for the white dropdown background you saw earlier */
 select option {
     background-color: #1a1a2e !important;
     color: white !important;
 }
 
-/* Focus States */
+/* Standard Focus (Blue Glow) */
 input:focus, select:focus, textarea:focus {
     border-color: #00d2ff !important;
     box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
@@ -131,34 +120,25 @@ input:focus, select:focus, textarea:focus {
     outline: none;
 }
 
-textarea { resize: none; }
+/* --- RED ALERT / ERROR STYLING --- */
+/* This matches your JS classList.add('error') */
+input.error, select.error, textarea.error {
+    border-color: #ff4d4d !important; /* Bright Red Border */
+    background: rgba(255, 77, 77, 0.15) !important; /* Subtle Red Background */
+    box-shadow: 0 0 15px rgba(255, 77, 77, 0.5) !important; /* Neon Red Glow */
+}
 
-/* --- RED ALERT VALIDATION STYLES --- */
+/* This matches your <div class="error-message"> text */
 .error-message {
-    color: #ff4d4d !important; /* Neon Red */
-    font-size: 12px;
+    color: #ff4d4d !important;
+    font-size: 11px;
     font-weight: 600;
-    height: 20px;
-    margin-top: 4px;
+    height: 18px; /* Keeps layout stable when text appears */
+    margin-top: 2px;
     display: block;
 }
 
-/* When the JS adds the 'error' class to the input */
-input.error, select.error, textarea.error {
-    border-color: #ff4d4d !important;
-    background: rgba(255, 77, 77, 0.15) !important;
-    box-shadow: 0 0 10px rgba(255, 77, 77, 0.3) !important;
-}
-
-/* --- CHECKBOX & BUTTON --- */
-.checkbox-group {
-    margin: 20px 0;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 14px;
-}
-
+/* --- BUTTONS & LINKS --- */
 .submit-btn {
     width: 100%;
     padding: 18px;
@@ -171,21 +151,19 @@ input.error, select.error, textarea.error {
     cursor: pointer;
     text-transform: uppercase;
     transition: 0.3s;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 .submit-btn:hover {
     filter: brightness(1.2);
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(0, 210, 255, 0.4);
 }
 
 .login-link { text-align: center; margin-top: 25px; }
 .login-link a { color: #00d2ff; text-decoration: none; font-weight: 600; }
 
-/* Responsive */
+/* Responsive Mobile */
 @media (max-width: 650px) {
     .form-row { grid-template-columns: 1fr; }
     .full-width { grid-column: span 1; }
-    .form-wrapper { padding: 30px; }
 }
