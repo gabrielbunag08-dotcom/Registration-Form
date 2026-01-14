@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function validateFirstName() {
         const value = firstName.value.trim();
         const error = document.getElementById('firstNameError');
-        
         if (value === '') {
             showError(firstName, error, 'First name is required');
             return false;
@@ -35,7 +34,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function validateLastName() {
         const value = lastName.value.trim();
         const error = document.getElementById('lastNameError');
-        
         if (value === '') {
             showError(lastName, error, 'Last name is required');
             return false;
@@ -51,7 +49,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function validateUsername() {
         const value = username.value.trim();
         const error = document.getElementById('usernameError');
-        
         if (value === '') {
             showError(username, error, 'Username is required');
             return false;
@@ -67,7 +64,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function validatePhoneNumber() {
         const value = phoneNumber.value.trim();
         const error = document.getElementById('phoneNumberError');
-        
         if (value === '') {
             showError(phoneNumber, error, 'Phone number is required');
             return false;
@@ -84,7 +80,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const value = email.value.trim();
         const error = document.getElementById('emailError');
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        
         if (value === '') {
             showError(email, error, 'Email is required');
             return false;
@@ -100,7 +95,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function validateGender() {
         const value = gender.value;
         const error = document.getElementById('genderError');
-        
         if (value === '') {
             showError(gender, error, 'Please select a gender');
             return false;
@@ -110,16 +104,19 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // --- REVISED DATE OF BIRTH VALIDATION ---
     function validateDOB() {
         const value = dob.value.trim();
         const error = document.getElementById('dobError');
-        const dobRegex = /^\d{2}\/\d{2}\/\d{2}$/;
+        // Numeric Regex for MM/DD/YYYY format
+        const dobRegex = /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/\d{4}$/;
         
         if (value === '') {
             showError(dob, error, 'Date of birth is required');
             return false;
         } else if (!dobRegex.test(value)) {
-            showError(dob, error, 'Format must be DD/MM/YY');
+            // Fixes the error found in
+            showError(dob, error, 'Format must be MM/DD/YYYY (Numbers only)');
             return false;
         } else {
             clearError(dob, error);
@@ -130,7 +127,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function validateCountry() {
         const value = country.value;
         const error = document.getElementById('countryError');
-        
         if (value === '') {
             showError(country, error, 'Please select a country');
             return false;
@@ -143,7 +139,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function validateHomeAddress() {
         const value = homeAddress.value.trim();
         const error = document.getElementById('homeAddressError');
-        
         if (value === '') {
             showError(homeAddress, error, 'Home address is required');
             return false;
@@ -159,7 +154,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function validatePassword() {
         const value = password.value;
         const error = document.getElementById('passwordError');
-        
         if (value === '') {
             showError(password, error, 'Password is required');
             return false;
@@ -178,7 +172,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function validateConfirmPassword() {
         const value = confirmPassword.value;
         const error = document.getElementById('confirmPasswordError');
-        
         if (value === '') {
             showError(confirmPassword, error, 'Please confirm your password');
             return false;
@@ -193,7 +186,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function validateTerms() {
         const error = document.getElementById('termsError');
-        
         if (!terms.checked) {
             error.textContent = 'You must agree to the terms and conditions';
             return false;
@@ -231,30 +223,17 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         
-        // Validate all fields
-        const isFirstNameValid = validateFirstName();
-        const isLastNameValid = validateLastName();
-        const isUsernameValid = validateUsername();
-        const isPhoneValid = validatePhoneNumber();
-        const isEmailValid = validateEmail();
-        const isGenderValid = validateGender();
-        const isDOBValid = validateDOB();
-        const isCountryValid = validateCountry();
-        const isHomeAddressValid = validateHomeAddress();
-        const isPasswordValid = validatePassword();
-        const isConfirmPasswordValid = validateConfirmPassword();
-        const isTermsValid = validateTerms();
+        const validations = [
+            validateFirstName(), validateLastName(), validateUsername(), 
+            validatePhoneNumber(), validateEmail(), validateGender(), 
+            validateDOB(), validateCountry(), validateHomeAddress(), 
+            validatePassword(), validateConfirmPassword(), validateTerms()
+        ];
         
-        // Check if all validations pass
-        if (isFirstNameValid && isLastNameValid && isUsernameValid && 
-            isPhoneValid && isEmailValid && isGenderValid && isDOBValid && 
-            isCountryValid && isHomeAddressValid && isPasswordValid && 
-            isConfirmPasswordValid && isTermsValid) {
-            
+        if (validations.every(v => v === true)) {
             alert('Registration successful! Form data is valid.');
-            // Here you would normally send the data to a server
             console.log('Form submitted successfully');
-            // form.reset(); // Uncomment to reset form after submission
+            // form.reset(); 
         } else {
             alert('Please fix all errors before submitting.');
         }
