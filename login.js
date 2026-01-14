@@ -1,36 +1,47 @@
-document.getElementById('loginForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const btn = document.getElementById('submitBtn');
-    const user = document.getElementById('loginUsername');
-    const pass = document.getElementById('loginPassword');
-    let isValid = true;
+document.addEventListener('DOMContentLoaded', function() {
+    const loginForm = document.getElementById('loginForm');
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordField = document.getElementById('loginPassword');
+    const submitBtn = document.getElementById('submitBtn');
 
-    // Simple Validation
-    if (user.value.trim() === "") {
-        user.classList.add('error');
-        isValid = false;
-    } else {
-        user.classList.remove('error');
-    }
+    // Password Visibility Toggle
+    togglePassword.addEventListener('click', function() {
+        const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordField.setAttribute('type', type);
+        this.style.color = type === 'text' ? '#00d2ff' : 'rgba(255, 255, 255, 0.5)';
+    });
 
-    if (pass.value.trim() === "") {
-        pass.classList.add('error');
-        isValid = false;
-    } else {
-        pass.classList.remove('error');
-    }
+    // Form Submission Logic
+    loginForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const username = document.getElementById('loginUsername');
+        let isValid = true;
 
-    if (isValid) {
-        // Trigger Loading State
-        btn.classList.add('loading');
-        btn.disabled = true;
+        // Reset states
+        username.classList.remove('error');
+        passwordField.classList.remove('error');
 
-        // Simulate a server delay (2 seconds)
-        setTimeout(() => {
-            alert("Login Successful! Redirecting to dashboard...");
-            btn.classList.remove('loading');
-            btn.disabled = false;
-        }, 2000);
-    }
+        if (username.value.trim() === "") {
+            username.classList.add('error');
+            isValid = false;
+        }
+        if (passwordField.value.trim() === "") {
+            passwordField.classList.add('error');
+            isValid = false;
+        }
+
+        if (isValid) {
+            // Start Spinner
+            submitBtn.classList.add('loading');
+            submitBtn.disabled = true;
+
+            // Simulate server delay
+            setTimeout(() => {
+                alert("Login Successful!");
+                submitBtn.classList.remove('loading');
+                submitBtn.disabled = false;
+            }, 2000);
+        }
+    });
 });
