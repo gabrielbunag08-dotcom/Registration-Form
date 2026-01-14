@@ -18,7 +18,7 @@ body {
     position: relative;
 }
 
-/* --- DEEP SPACE ANIMATIONS --- */
+/* --- SPACE EFFECTS --- */
 body::before {
     content: "";
     position: fixed;
@@ -52,29 +52,25 @@ body::before {
 .shape-4 { width: 300px; height: 300px; background: #8e2de2; bottom: 10%; left: 5%; opacity: 0.3; }
 
 @keyframes nebulaFloat {
-    from { transform: translate(0, 0) scale(1) rotate(0deg); }
-    to { transform: translate(60px, 60px) scale(1.1) rotate(15deg); }
+    from { transform: translate(0, 0) scale(1); }
+    to { transform: translate(60px, 60px) scale(1.1); }
 }
 
-/* --- GLASS-MORPHISM CONTAINER --- */
+/* --- CONTAINER & FORM --- */
 .container {
     width: 100%;
     max-width: 850px;
     position: relative;
     z-index: 10;
-    margin: 0 auto;
 }
 
 .form-wrapper {
-    background: rgba(15, 15, 30, 0.7); /* Translucent dark purple-black */
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    background: rgba(15, 15, 30, 0.75);
+    backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 30px;
     padding: 50px;
-    box-shadow: 
-        0 25px 50px -12px rgba(0, 0, 0, 0.5),
-        inset 0 0 20px rgba(0, 210, 255, 0.1); /* Subtle inner neon glow */
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
     color: white;
 }
 
@@ -83,65 +79,77 @@ body::before {
     margin: -50px -50px 40px -50px;
     padding: 30px;
     background: linear-gradient(90deg, #ff00cc, #3333ff, #00d2ff);
-    background-size: 200% auto;
-    animation: gradientShift 5s ease infinite;
     border-radius: 30px 30px 0 0;
     text-transform: uppercase;
     letter-spacing: 4px;
     font-weight: 800;
-    font-size: 32px;
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
 }
 
-@keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-/* --- NEON GRID SYSTEM --- */
 .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 15px 30px;
-    margin-bottom: 8px;
-    width: 100%;
+    margin-bottom: 5px;
 }
 
-.form-group { width: 100%; position: relative; }
 .full-width { grid-column: span 2; }
 
-/* --- INTERACTIVE INPUTS --- */
+/* --- INPUTS & DROPDOWN FIX --- */
 input, select, textarea {
     width: 100%;
     padding: 16px;
     background: rgba(255, 255, 255, 0.05) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
     color: white !important;
     border-radius: 12px;
     font-size: 15px;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: 0.3s ease;
+    color-scheme: dark; /* Fix for dark dropdowns */
 }
 
-/* Hover & Focus Effects */
-input:hover, select:hover, textarea:hover {
-    background: rgba(255, 255, 255, 0.08) !important;
-    border-color: rgba(0, 210, 255, 0.5) !important;
+/* Placeholder brightness */
+::placeholder {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Dropdown Options Color Fix */
+select option {
+    background-color: #1a1a2e;
+    color: white;
 }
 
 input:focus, select:focus, textarea:focus {
-    background: rgba(255, 255, 255, 0.12) !important;
     border-color: #00d2ff !important;
-    box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
-    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
+    background: rgba(255, 255, 255, 0.1) !important;
     outline: none;
 }
 
-/* --- BUTTON & LINKS --- */
+/* Textarea handle removal */
+textarea {
+    resize: none; 
+}
+
+/* --- CHECKBOXES --- */
+.checkbox-group {
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+}
+
+.checkbox-group input {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+/* --- BUTTON --- */
 .submit-btn {
     width: 100%;
     padding: 18px;
-    background: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
+    background: linear-gradient(90deg, #00d2ff, #3a7bd5);
     border: none;
     color: white;
     font-weight: 800;
@@ -149,30 +157,21 @@ input:focus, select:focus, textarea:focus {
     border-radius: 15px;
     cursor: pointer;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-top: 25px;
-    box-shadow: 0 10px 30px rgba(0, 210, 255, 0.4);
-    transition: 0.3s all;
+    box-shadow: 0 10px 20px rgba(0, 210, 255, 0.3);
+    transition: 0.3s;
 }
 
 .submit-btn:hover {
-    transform: scale(1.02);
-    box-shadow: 0 0 40px rgba(0, 210, 255, 0.7);
-    filter: brightness(1.1);
+    filter: brightness(1.2);
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px rgba(0, 210, 255, 0.5);
 }
 
-.login-link { text-align: center; margin-top: 25px; opacity: 0.8; }
-.login-link a { 
-    color: #00d2ff; 
-    text-decoration: none; 
-    font-weight: 600; 
-    transition: 0.3s;
-}
-.login-link a:hover { text-shadow: 0 0 10px #00d2ff; }
+.login-link { text-align: center; margin-top: 25px; }
+.login-link a { color: #00d2ff; text-decoration: none; font-weight: 600; }
 
-/* Responsive */
+/* Responsive Mobile */
 @media (max-width: 650px) {
     .form-row { grid-template-columns: 1fr; }
     .full-width { grid-column: span 1; }
-    .form-wrapper { padding: 30px; }
 }
